@@ -1,0 +1,19 @@
+ # godlike tutorial
+ https://github.com/microsoft/azure-streamlit-chatbot/tree/main
+ 
+ 
+ 
+ # az acr create --name <ACR-NAME> --resource-group <RG-NAME> --sku basic --admin-enabled true
+ az acr create --name basics --resource-group streamlitcontainerstuff --sku basic --admin-enabled true
+
+# az appservice plan create --resource-group <RG-NAME> --name <APP-SERVICE-PLAN-NAME> --location eastus --is-linux --sku B1
+az appservice plan create --resource-group streamlitcontainerstuff --name stbasics --location eastus --is-linux --sku B1
+
+# az acr build --registry <ACR-NAME> --resource-group <RG-NAME> --image stbasic .
+az acr build --registry basics --resource-group streamlitcontainerstuff --image stbasic .
+
+# az webapp create --resource-group <RG-NAME> --plan <APP-SERVICE-PLAN-NAME> --name <BOT-WEBAPP-NAME> -i <ACR-NAME>.azurecr.io/stbasic:latest
+az webapp create --resource-group streamlitcontainerstuff --plan stbasics --name stbasicstemplate -i basics.azurecr.io/stbasic:latest
+
+# az webapp config appsettings set --resource-group <RG-NAME> --name <BOT-WEBAPP-NAME> --settings WEBSITES_PORT=8502 WEBSITES_CONTAINER_START_TIME_LIMIT=1800
+az webapp config appsettings set --resource-group streamlitcontainerstuff --name stbasicstemplate --settings WEBSITES_PORT=8502 WEBSITES_CONTAINER_START_TIME_LIMIT=1800
